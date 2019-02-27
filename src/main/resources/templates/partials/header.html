@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<th:block th:fragment="header(title)">
+    <meta charset="UTF-8" />
+    <title th:text="${title}"></title>
+    <link rel="shortcut icon" th:href="@{/assets/img/img.png}" type="image/png" />
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</th:block>
+</html>
