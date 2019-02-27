@@ -36,4 +36,21 @@ public class MathController {
         return "" + (first * second);
     }
 
+    @GetMapping("/roll-dice")
+    @ResponseBody
+    public String roll(){
+        return "" +  ((int)(Math.ceil(Math.random() * 6)));
+    }
+
+    @GetMapping("/roll-dice/{guess}")
+    @ResponseBody
+    public String rollGuess(@PathVariable int guess){
+        int roll = Integer.parseInt(roll());
+
+        if(roll == guess){
+            return "Generated of a die roll: " + roll + "\nYour guess was correct!!";
+        }
+        return "Generated of a die roll: " + roll + "\nYour guess: " + guess;
+    }
+
 }

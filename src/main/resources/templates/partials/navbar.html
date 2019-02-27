@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top scrolling-navbar" th:fragment="navbar">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="main-navbar">
+            <ul class="sign-in">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class=""></i>My Account</a>
+                    <div class="dropdown-menu">
+                        <div >
+                            <a class="dropdown-item" href=""><i class="lni-wallet"></i> My Ads</a>
+                            <a class="dropdown-item" href=""><i class="lni-pencil-alt"></i> Create an ad</a>
+                            <a class="dropdown-item" href=""><i class="lni-close"></i> Logout</a>
+                        </div>
+                        <div >
+                            <a class="dropdown-item" href=""><i class="lni-user"></i> Create an Account</a>
+                            <a class="dropdown-item" href=""><i class="lni-lock"></i> Login</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>
