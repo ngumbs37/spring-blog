@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/header :: header('Post')">
+</head>
+
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<h1>Showing post <span th:text="${post.getId()}"></span></h1>
+
+<h3 th:text="${post.getTitle()}"></h3>
+<p th:text="${post.getBody()}"></p>
+
+<form th:action="@{/post/delete/{id}(id=${post.getId()})}" method="get" name="id">
+    <button value="Delete" type="submit"></button>
+</form>
+<script th:replace="partials/scripts :: scripts"></script>
+</body>
+</html>
