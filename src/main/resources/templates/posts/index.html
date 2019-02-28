@@ -3,11 +3,12 @@
 <head th:include="partials/header :: header('Posts')"></head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div th:each="post : ${posts}">
-    <a th:href="@{post/{id}(id=${post.getId()})}">
-        <h3 th:text="${post.getTitle()}"></h3></a>
-    <p th:text="${post.getBody()}"></p>
-
+<div th:class="container">
+    <div th:each="post : ${posts}">
+        <a th:href="@{post/{id}(id=${post.getId()})}">
+            <h3 th:text="${post.getTitle()}"></h3></a>
+        <p th:text="${post.getBody()}"></p>
+    </div>
 </div>
 <script th:replace="partials/scripts :: scripts"></script>
 </body>

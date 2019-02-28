@@ -4,17 +4,19 @@
 
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
+    <div th:class="container">
+        <h1 class="mb-30">Delete post?</h1>
 
-<h1>Delete post?</h1>
-
-<h3 th:text="${post.getTitle()}"></h3>
-<p th:text="${post.getBody()}"></p>
-
-<form action="/post/delete" method="post">
-        <button name="id" th:value="${post.getId()}" type="submit">Delete</button>
-</form>
+        <h3 th:text="${post.getTitle()}"></h3>
+        <p th:text="${post.getBody()}"></p>
+        <form th:action="@{/post/{id} (id = ${post.getId()})}" th:method="post" th:object="${post}">
+                <button th:text="Return" th:type="submit"></button>
+        </form>
+        <form th:action="@{/post/{id}/delete (id = ${post.getId()})}" th:method="post" th:object="${post}">
+                <button th:type="submit">Delete</button>
+        </form>
+    </div>
 
 <script th:replace="partials/scripts :: scripts"></script>
-
 </body>
 </html>

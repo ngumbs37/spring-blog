@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="form(url,buttonName, postTitle, postBody)">
+    <div th:class="container">
+        <form th:action="@{${url}}" th:method="post">
+            <div th:class="form-group">
+                <label for="title">Title:</label>
+                <div>
+                    <input id="title" th:name="title" th:value="${postTitle}"/>
+                </div>
+            </div>
+            <div th:class="form-group">
+                <label for="body">Body:</label>
+                <div>
+                    <textarea id="body" th:name="body" th:text="${postBody}" cols="20" rows="3"></textarea>
+                </div>
+            </div>
+            <button type="submit" th:text="${buttonName}"></button>
+        </form>
+    </div>
+</th:block>
+</body>
+</html>

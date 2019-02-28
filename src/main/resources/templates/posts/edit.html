@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:include="partials/header :: header('Create Post')"></head>
+<head th:include="partials/header :: header('Edit Post')"></head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div class="container">
-<form th:replace="partials/form :: form(url = '/post/create', buttonName = 'Create Post',
+<div th:class="container">
+<form th:replace="partials/form :: form(url = '/post/'+${post.getId()}+'/edit', buttonName = 'Submit Changes',
  postTitle = ${post.title}, postBody = ${post.body})"></form>
     <form th:action="@{/post/{id} (id = ${post.getId()})}" th:method="post" th:object="${post}">
         <button th:text="Return" th:type="submit"></button>
     </form>
 </div>
 <script th:replace="partials/scripts :: scripts"></script>
-
 </body>
 </html>

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm scrolling-navbar" th:fragment="navbar">
+<nav class="navbar navbar-expand-sm scrolling-navbar mb-30" th:fragment="navbar">
     <div class="container">
         <div class="collapse navbar-collapse" id="main-navbar">
             <ul class="sign-in">
@@ -16,7 +16,7 @@
                     <div class="dropdown-menu">
                         <div >
                             <a class="dropdown-item" href=""><i class="lni-wallet"></i> My Ads</a>
-                            <a class="dropdown-item" href=""><i class="lni-pencil-alt"></i> Create an ad</a>
+                            <a class="dropdown-item" th:href="@{/post/create}"><i class="lni-pencil-alt"></i> Create a post</a>
                             <a class="dropdown-item" href=""><i class="lni-close"></i> Logout</a>
                         </div>
                         <div >

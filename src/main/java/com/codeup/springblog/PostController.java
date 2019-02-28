@@ -29,12 +29,13 @@ public class PostController {
         return "posts/show";
     }
 
-    @PostMapping("/post/delete")
-    public String deletePost(@RequestParam("id") long id){
-        postRepository.delete(id);
+    @PostMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable long id, @ModelAttribute Post post){
+
+        postRepository.delete(post);
         return "redirect:/posts";
     }
-    @GetMapping("/post/delete/{id}")
+    @GetMapping("/post/{id}/delete")
     public String deletePost(@PathVariable long id, Model model){
         Post post = postRepository.findOne(id);
         model.addAttribute("post", post);
@@ -42,20 +43,35 @@ public class PostController {
     }
 
     @GetMapping("/post/create")
-    public String createPost(){
+    public String createPost(Model model){
+        model.addAttribute("post", new Post());
+//        form(model);
         return "posts/create";
     }
-    @PostMapping("/post/create")
-    public String createPost(@RequestParam("title") String title,
-                              @RequestParam("body") String body
-//            ,@RequestParam("tags") String[] tags
-    ){
 
-        Post post = new Post(title,body);
+//    public String form(Model model){
+//        model.addAttribute("post", new Post());
+//        return "partials/form";
+//    }
+    @PostMapping("/post/create")
+    public String createPost(@ModelAttribute Post post){
         postRepository.save(post);
         return "redirect:/posts";
     }
 
 
+    @GetMapping("/post/{id}/edit")
+    public String editPost(@PathVariable long id, Model model){
+        model.addAttribute("post", postRepository.findOne(id));
+        return "posts/edit";
+    }
+    @PostMapping("/post/{id}/edit")
+    public String editPost(@PathVariable long id, @ModelAttribute Post post){
 
+        Post oldPost = postRepository.findOne(id);
+
+        post.setId(oldPost.getId());
+        postRepository.save(post);
+        return "redirect:/post/" + post.getId();
+    }
 }
