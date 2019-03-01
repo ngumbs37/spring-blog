@@ -17,6 +17,9 @@ public class Post {
     @Column(name = "body", length = 1024)
     private String body;
 
+    @Column(name = "filepath", length = 512)
+    private String filepath;
+
     @OneToMany(
             mappedBy = "post",
             cascade = CascadeType.ALL,
@@ -70,6 +73,13 @@ public class Post {
         this.tags = tags;
     }
 
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
 
     public void addTag(Tag tag) {
         PostTag postTag = new PostTag(this, tag);

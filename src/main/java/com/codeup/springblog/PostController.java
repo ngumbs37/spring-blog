@@ -31,8 +31,9 @@ public class PostController {
 
     @PostMapping("/post/{id}/delete")
     public String deletePost(@PathVariable long id, @ModelAttribute Post post){
-
-        postRepository.delete(post);
+         if(id == post.getId()) {
+             postRepository.delete(post);
+         }
         return "redirect:/posts";
     }
     @GetMapping("/post/{id}/delete")
