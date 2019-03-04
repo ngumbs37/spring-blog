@@ -2,6 +2,7 @@ package com.codeup.springblog;
 
 import com.codeup.springblog.dao.post.PostRepository;
 import com.codeup.springblog.models.post.Post;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostRepository postRepository;
-
-    public PostController(PostRepository postRepository){
+    private final EmailService emailService;
+    public PostController(PostRepository postRepository, EmailService emailService){
         this.postRepository = postRepository;
+        this.emailService = emailService;
     }
+
+
 
     @GetMapping("/posts")
     public String posts(Model model){
@@ -46,17 +50,15 @@ public class PostController {
     @GetMapping("/post/create")
     public String createPost(Model model){
         model.addAttribute("post", new Post());
-//        form(model);
         return "posts/create";
     }
 
-//    public String form(Model model){
-//        model.addAttribute("post", new Post());
-//        return "partials/form";
-//    }
     @PostMapping("/post/create")
     public String createPost(@ModelAttribute Post post){
-        postRepository.save(post);
+         Post createdPost = postRepository.save(post);
+
+         emailService.prepareAndSend(createdPost, "Post creation", "You have created a post with the id of " + createdPost.getId());
+
         return "redirect:/posts";
     }
 
