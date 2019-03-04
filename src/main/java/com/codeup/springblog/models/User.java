@@ -1,4 +1,4 @@
-package com.codeup.springblog.models.user;
+package com.codeup.springblog.models;
 
 import javax.persistence.*;
 
@@ -9,16 +9,22 @@ public class User {
     @GeneratedValue
     private long id;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "username", nullable = false, length = 64)
+    @Column(name = "username", nullable = false, length = 64, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
 
     public User(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+    public User(Long id, String email, String username, String password) {
+        this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;

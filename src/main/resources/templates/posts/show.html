@@ -6,7 +6,7 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <div class="container">
-    <h1>Showing post <span th:text="${post.getId()}"></span></h1>
+    <h1>Showing post <span th:text="${post.getId()}"></span> by <span th:text="${post.getOwner().getEmail()}"></span></h1>
 
     <h3 th:text="${post.getTitle()}"></h3>
     <p th:text="${post.getBody()}"></p>

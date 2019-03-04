@@ -1,7 +1,9 @@
 package com.codeup.springblog;
 
-import com.codeup.springblog.dao.post.PostRepository;
-import com.codeup.springblog.models.post.Post;
+import com.codeup.springblog.dao.PostRepository;
+import com.codeup.springblog.dao.UserRepository;
+import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,11 @@ public class PostController {
 
     private final PostRepository postRepository;
     private final EmailService emailService;
-    public PostController(PostRepository postRepository, EmailService emailService){
+    private final UserRepository userRepository;
+    public PostController(PostRepository postRepository, EmailService emailService, UserRepository userRepository){
         this.postRepository = postRepository;
         this.emailService = emailService;
+        this.userRepository = userRepository;
     }
 
 
@@ -29,6 +33,7 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String post(@PathVariable long id, Model model){
         Post post = postRepository.findOne(id);
+        System.out.println(post.getOwner());
         model.addAttribute("post", post);
         return "posts/show";
     }
@@ -55,6 +60,7 @@ public class PostController {
 
     @PostMapping("/post/create")
     public String createPost(@ModelAttribute Post post){
+         post.setOwner(new User(1L,"ngumbs37@gmail.com","ngumbs","password"));
          Post createdPost = postRepository.save(post);
 
          emailService.prepareAndSend(createdPost, "Post creation", "You have created a post with the id of " + createdPost.getId());

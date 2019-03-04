@@ -1,4 +1,4 @@
-package com.codeup.springblog.models.post;
+package com.codeup.springblog.models;
 
 import org.hibernate.annotations.NaturalId;
 
