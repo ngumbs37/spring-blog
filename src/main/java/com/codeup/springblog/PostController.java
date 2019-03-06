@@ -5,6 +5,7 @@ import com.codeup.springblog.dao.UserRepository;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,6 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String post(@PathVariable long id, Model model){
         Post post = postRepository.findOne(id);
-        System.out.println(post.getOwner());
         model.addAttribute("post", post);
         return "posts/show";
     }
@@ -60,10 +60,11 @@ public class PostController {
 
     @PostMapping("/post/create")
     public String createPost(@ModelAttribute Post post){
-         post.setOwner(new User(1L,"ngumbs37@gmail.com","ngumbs","password"));
-         Post createdPost = postRepository.save(post);
 
-         emailService.prepareAndSend(createdPost, "Post creation", "You have created a post with the id of " + createdPost.getId());
+        post.setOwner(getDbUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+        Post createdPost = postRepository.save(post);
+
+        emailService.prepareAndSend(createdPost, "Post creation", "You have created a post with the id of " + createdPost.getId());
 
         return "redirect:/posts";
     }
@@ -82,5 +83,9 @@ public class PostController {
         post.setId(oldPost.getId());
         postRepository.save(post);
         return "redirect:/post/" + post.getId();
+    }
+
+    private User getDbUser(User sessionUser){
+        return userRepository.findOne(sessionUser.getId());
     }
 }
